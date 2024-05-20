@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'as-part2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hamilton–Jacobi–Bellman equation" href="hjb.html" />
     <link rel="prev" title="Avellaneda-Stoikov Model - Part1" href="as-part1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -171,6 +172,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="as-part1.html">Avellaneda-Stoikov Model - Part1</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Avellaneda-Stoikov Model - Part2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hjb.html">Hamilton–Jacobi–Bellman equation</a></li>
 </ul>
 
     </div>
@@ -431,9 +433,55 @@ held at time <span class="math notranslate nohighlight">\(t\)</span> is</p>
 <p>The objective of the agent who can set limit orders is:</p>
 <div class="math notranslate nohighlight">
 \[u(s, x, q, t) = \max_{\delta^{a},\delta^{b}}\mathbb{E}_{t}[-\exp(-\gamma(X_{T} + q_{T}S_{T}))]\]</div>
+<p>Before turning to the solution of this problem, we
+consider some realistic functional forms for the intensities <span class="math notranslate nohighlight">\(\lambda^{a}(\delta^{a})\)</span> and <span class="math notranslate nohighlight">\(\lambda^{b}(\delta^{b})\)</span> inspired by recent results in the
+econophysics literature.</p>
 </section>
 <section id="the-trading-intensity">
 <h2>The trading intensity<a class="headerlink" href="#the-trading-intensity" title="Permalink to this heading">#</a></h2>
+<p>One of the main objectives of the econophysics community
+has been to describe the laws governing the
+microstructure of financial markets. Here, we will be
+focusing on the results which address the Poisson
+intensity <span class="math notranslate nohighlight">\(\lambda\)</span> with which a limit order will be executed as
+a function of its distance <span class="math notranslate nohighlight">\(\delta\)</span> to the mid-price. In order to
+quantify this, we need to know statistics on:</p>
+<ol class="arabic simple">
+<li><p>the overall
+frequency of market orders,</p></li>
+<li><p>the distribution of their
+size,</p></li>
+<li><p>the temporary impact of a large market
+order.</p></li>
+</ol>
+<p>For simplicity, we assume a constant frequency <span class="math notranslate nohighlight">\(\Lambda\)</span> of
+market buy or sell orders.</p>
+<p>The distribution of the size of market orders has been
+found by several studies to obey a power law. In other
+words, the density of market order size is</p>
+<div class="math notranslate nohighlight">
+\[f^{Q}(x)\propto x^{-1-\alpha}\quad\text{note: }\propto\text{ means proportion to}\]</div>
+<p>for large x, with <span class="math notranslate nohighlight">\(\alpha=1.53\)</span> for US stocks.</p>
+<p>On the statistics of the market impact in the econophysics literature. Some authors find that the change in price <span class="math notranslate nohighlight">\(\Delta{p}\)</span> following a market order of size <span class="math notranslate nohighlight">\(Q\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\Delta{p}\propto Q^{\beta},\]</div>
+<p>Some authors find a better fit to the function</p>
+<div class="math notranslate nohighlight">
+\[\Delta{p}\propto\ln(Q).\]</div>
+<p>Aggregating this information, we may derive the
+Poisson intensity at which our agent’s orders are
+executed:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\lambda(\delta) &amp;= \Lambda P(\Delta p&gt;\delta) \\
+&amp;= \Lambda P(\ln(Q)&gt;K\delta) \\
+&amp;= \Lambda P(Q&gt;\exp(K\delta)) \\
+&amp;= \Lambda \int_{\exp(K\delta)}^{\infty}x^{-1-\alpha}\mathrm{d}x\quad \text{(note: no proportion constant?)}\\
+&amp;= A\exp(-k\delta)
+\end{aligned}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(A=\Lambda/\alpha\)</span> and <span class="math notranslate nohighlight">\(k=\alpha K\)</span>.</p>
 </section>
 </section>
 
@@ -475,6 +523,15 @@ held at time <span class="math notranslate nohighlight">\(t\)</span> is</p>
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Avellaneda-Stoikov Model - Part1</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="hjb.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Hamilton–Jacobi–Bellman equation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -540,8 +597,8 @@ By The Jupyter Book Community
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>
