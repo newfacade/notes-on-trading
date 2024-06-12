@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -143,7 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="intro.html">
+<a class="navbar-brand logo" href="as-part1.html">
   
   
   
@@ -164,13 +165,12 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                <a class="reference internal" href="as-part1.html">
+                    Avellaneda-Stoikov Model - Part1
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="as-part1.html">Avellaneda-Stoikov Model - Part1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="as-part2.html">Avellaneda-Stoikov Model - Part2</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Avellaneda-Stoikov Model - Part3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="as-part4.html">Avellaneda-Stoikov Model - Part4</a></li>
@@ -394,7 +394,7 @@ function</p>
 \[u(s, x, q, t) = \max_{\delta^{a},\delta^{b}}\mathbb{E}_{t}[-\exp(-\gamma(X_{T} + q_{T}S_{T}))]\]</div>
 <p>where the optimal feedback controls <span class="math notranslate nohighlight">\(\delta^{a}\)</span> and <span class="math notranslate nohighlight">\(\delta^{b}\)</span> will turn
 out to be time and state dependent. We can use the dynamic
-programming principle to show that the function u solves
+programming principle to show that the function <span class="math notranslate nohighlight">\(u\)</span> solves
 the following Hamilton–Jacobi–Bellman equation</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -405,26 +405,60 @@ u_{t} &amp;+ \frac{1}{2}\sigma^{2}u_{ss} \\
 u(&amp;s,x,q,T) = -\exp(-\gamma(x+ qs)).
 \end{aligned}
 \end{split}\]</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Proof:<br>
-<img alt="" src="_images/as5.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span class="math notranslate nohighlight">\(u(s, x, q, t)\)</span> 描述了在给定当前状态下（包括时间 <span class="math notranslate nohighlight">\(t\)</span>、库存 <span class="math notranslate nohighlight">\(q\)</span>、现金 <span class="math notranslate nohighlight">\(x\)</span> 和价格 <span class="math notranslate nohighlight">\(s\)</span>）的最大期望效用，可以使用动态规划的方法建立从 <span class="math notranslate nohighlight">\(t\)</span> 到 <span class="math notranslate nohighlight">\(t+\Delta\)</span> 的递推方程：</p>
+<div class="math notranslate nohighlight">
+\[u(s,x,q,t) = \max_{\delta^{a},\delta^{b}}\mathbb{E}[u(s_{t+\Delta{t}}, x_{t+\Delta{t}}, q_{t+\Delta{t}}, t+\Delta{t})]\]</div>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><img alt="" src="_images/as6.png" /></p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><img alt="" src="_images/as7.png" /></p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><img alt="" src="_images/as8.png" /></p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><img alt="" src="_images/as9.png" /></p>
+<div class="proof admonition" id="proof">
+<p>Proof. 当 <span class="math notranslate nohighlight">\(\Delta{t}\)</span> 足够小时</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;u(s_{t+\Delta{t}}, x_{t+\Delta{t}}, q_{t+\Delta{t}}, t+\Delta{t}) - u(s,x,q,t)\approx\\
+&amp;\frac{\partial u}{\partial s}\Delta{s} + \frac{\partial u}{\partial x}\Delta{x} + \frac{\partial u}{\partial q}\Delta{q} + \frac{\partial u}{\partial t}\Delta{t}\approx\\
+&amp;(u(s_{t+\Delta{t}}, x, q, t+\Delta{t}) - u(s,x,q,t)) + (u(s, x_{t+\Delta{t}}, q_{t+\Delta{t}}, t) - u(s,x,q,t))
+\end{aligned}
+\end{split}\]</div>
+<p>设 <span class="math notranslate nohighlight">\(\lambda^{a}(\delta^{a})\)</span> 和 <span class="math notranslate nohighlight">\(\lambda^{b}(\delta^{b})\)</span> 分别是卖出和买入事件的到达率，则在 <span class="math notranslate nohighlight">\(\Delta{t}\)</span> 内，卖出和买入事件发生的概率分别是 <span class="math notranslate nohighlight">\(\lambda^{a}(\delta^{a})\Delta{t}\)</span> 和 <span class="math notranslate nohighlight">\(\lambda^{b}(\delta^{b})\Delta{t}\)</span>（忽略卖出和买入多次的情况）。</p>
+<ul class="simple">
+<li><p>卖出事件发生的增量：<br>
+<span class="math notranslate nohighlight">\(u(s, x+s+\delta^{a}, q-1, t) - u(s,x,q,t)\)</span></p></li>
+<li><p>买入事件发生的增量：<br>
+<span class="math notranslate nohighlight">\(u(s, x-(s-\delta^{b}), q+1, t) - u(s,x,q,t)\)</span></p></li>
+</ul>
+<p>因此：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;\mathbb{E}[u(s, x_{t+\Delta{t}}, q_{t+\Delta{t}}, t)] - u(s,x,q,t) \approx \\
+&amp;\lambda^{a}(\delta^{a})\Delta{t}(u(s, x+s+\delta^{a}, q-1, t) - u(s,x,q,t)) + \\
+&amp;\lambda^{b}(\delta^{b})\Delta{t}(u(s, x-s+\delta^{b}, q+1, t) - u(s,x,q,t))
+\end{aligned}
+\end{split}\]</div>
+<p>另一方面，对 <span class="math notranslate nohighlight">\(u\)</span> 进行泰勒展开：</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{aligned}
+u(s_{t+\Delta{t}}, x, q, t+\Delta{t}) - u(s,x,q,t) &amp;\approx \frac{\partial u}{\partial t}\Delta{t} + \frac{\partial u}{\partial s}\Delta{s} + \frac{1}{2}\frac{\partial^{2} u}{\partial s^{2}}(\Delta{s})^{2}
+\end{aligned}
+\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\Delta{s}=\sigma\Delta{W_{t}}\)</span> 是随机变量，由于 <span class="math notranslate nohighlight">\(\Delta{W_{t}}\sim\mathcal{N}(0, \Delta{t})\)</span>，所以 <span class="math notranslate nohighlight">\(\mathbb{E}[(\Delta{W_{t}})^{2}] = \Delta{t}\)</span>，<span class="math notranslate nohighlight">\(\mathbb{E}[(\Delta{s})^{2}] = \sigma^{2}\Delta{t}\)</span>，而 <span class="math notranslate nohighlight">\(\mathbb{E}[\Delta{s}]=0\)</span>。取期望：</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[u(s_{t+\Delta{t}}, x, q, t+\Delta{t})] - u(s,x,q,t) \approx \frac{\partial u}{\partial t}\Delta{t} + \frac{1}{2}\sigma^{2}\frac{\partial^{2} u}{\partial s^{2}}\Delta{t}
+\]</div>
+<p>合并两方面：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+0&amp;=\max_{\delta^{a},\delta^{b}}\mathbb{E}[u(s_{t+\Delta{t}}, x_{t+\Delta{t}}, q_{t+\Delta{t}}, t+\Delta{t})] - u(s,x,q,t)\\
+&amp;\approx u_{t} + \frac{1}{2}\sigma^{2}u_{ss} + \\
+&amp;\max_{\delta^{a}}\lambda^{a}(\delta^{a})\Delta{t}(u(s, x+s+\delta^{a}, q-1, t) - u(s,x,q,t)) +\\
+&amp;\max_{\delta^{b}}\lambda^{b}(\delta^{b})\Delta{t}(u(s, x-s+\delta^{b}, q+1, t) - u(s,x,q,t))
+\end{aligned}
+\end{split}\]</div>
 </div>
 </section>
 <section id="transformation-of-hjb-equation">
@@ -440,7 +474,7 @@ with the ansatz</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\theta_{t} &amp;+ \frac{1}{2}\sigma^{2}\theta_{ss} \\
+\theta_{t} &amp;+ \frac{1}{2}\sigma^{2}\theta_{ss}-\frac{1}{2}\sigma^{2}\gamma\theta_{s}^{2} \\
 &amp;+ \underset{\delta^{b}}{\max}\left[\frac{\lambda^{b}(\delta^{b})}{\gamma}[1 - e^{\gamma(s-\delta^{b} - r^{b})}]\right] +\\
 &amp;+ \underset{\delta^{a}}{\max}\left[\frac{\lambda^{a}(\delta^{a})}{\gamma}[1 - e^{-\gamma(s+\delta^{b} - r^{b})}]\right] = 0\\
 \theta(&amp;s,q,T) = qs.

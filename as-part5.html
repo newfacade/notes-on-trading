@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Avellaneda-Stoikov Model - Part4 &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'as-part5';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="as-part1.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="as-part1.html">
+                    Avellaneda-Stoikov Model - Part1
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="as-part2.html">Avellaneda-Stoikov Model - Part2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="as-part3.html">Avellaneda-Stoikov Model - Part3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="as-part4.html">Avellaneda-Stoikov Model - Part4</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fas-part5.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/as-part5.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Avellaneda-Stoikov Model - Part4</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="avellaneda-stoikov-model-part4">
+<h1>Avellaneda-Stoikov Model - Part4<a class="headerlink" href="#avellaneda-stoikov-model-part4" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Practice!</p>
+</div>
+<p>In the previous chapter, we obtain the indifference mid price:</p>
+<div class="math notranslate nohighlight">
+\[r(s, t) = s - q\gamma\sigma^{2}(T-t)\]</div>
+<p>and the bid/ask spread:</p>
+<div class="math notranslate nohighlight">
+\[\sigma^{a} + \sigma^{b} = \gamma\sigma^{2}(T-t) + \frac{2}{\gamma}\ln(1+\frac{\gamma}{k}).\]</div>
+<p>For ETH, we have estimated:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sigma=0.35\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(k=2.856\)</span></p></li>
+</ul>
+<p>we can set:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\gamma = [0.01, 0.1, 1]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(T=\)</span> every 1,8,24 hours.</p></li>
+</ul>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">lst</span> <span class="o">=</span> <span class="n">read_jsonl</span><span class="p">(</span><span class="s1">&#39;2024-05-29.json&#39;</span><span class="p">)</span>
+<span class="n">show_list</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>86400
+[1716912000000, &#39;3861.10000000&#39;, &#39;3861.11000000&#39;, &#39;3861.10000000&#39;, &#39;3861.11000000&#39;, &#39;0.36010000&#39;, 1716912000999, &#39;1390.38375800&#39;, 21, &#39;0.16480000&#39;, &#39;636.31092800&#39;, &#39;0&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)),</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4257702c5a35081086a6cf365f9d13b39f213b19773ce20648cc3012dcb491c3.png" src="_images/4257702c5a35081086a6cf365f9d13b39f213b19773ce20648cc3012dcb491c3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">one_step</span><span class="p">(</span><span class="n">kline</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="n">timestamp</span><span class="p">,</span> <span class="n">open_price</span><span class="p">,</span> <span class="n">high_price</span><span class="p">,</span> <span class="n">low_price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">kline</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">kline</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">kline</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">kline</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="n">hour</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamp</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">gap</span> <span class="o">*</span> <span class="n">gap</span>
+
+    <span class="n">mid_price</span> <span class="o">=</span> <span class="n">open_price</span> <span class="o">-</span> <span class="n">q</span> <span class="o">*</span> <span class="n">gamma</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">T</span> <span class="o">-</span> <span class="n">timestamp</span><span class="p">)</span>
+    <span class="n">spread</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">T</span> <span class="o">-</span> <span class="n">timestamp</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span>
+    
+    <span class="n">buy_price</span> <span class="o">=</span> <span class="n">mid_price</span> <span class="o">-</span> <span class="n">spread</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">sell_price</span> <span class="o">=</span> <span class="n">mid_price</span> <span class="o">+</span> <span class="n">spread</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">low_price</span> <span class="o">&lt;</span> <span class="n">buy_price</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">buy_price</span>
+        <span class="n">q</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;buy&#39;</span><span class="p">,</span> <span class="n">mid_price</span><span class="p">,</span> <span class="n">buy_price</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">mid_price</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">high_price</span> <span class="o">&gt;</span> <span class="n">sell_price</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="n">sell_price</span>
+        <span class="n">q</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sell&#39;</span><span class="p">,</span> <span class="n">mid_price</span><span class="p">,</span> <span class="n">sell_price</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">mid_price</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">q</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.35</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mf">2.856</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">hour</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">q</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">kline</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">[</span><span class="n">start</span><span class="p">:</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)]:</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">one_step</span><span class="p">(</span><span class="n">kline</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">hour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3986
+buy 3845.25 3844.068696507136 -3844.068696507136 1 1.1813034928641173
+sell 3841.557675 3842.738365992864 -1.3303305142717363 0 -1.3303305142717363
+buy 3845.69 3844.585259007136 -3845.9155895214076 1 -0.22558952140752808
+sell 3842.8008 3843.904928492864 -2.0106610285433817 0 -2.0106610285433817
+buy 3841.99 3841.1039215071355 -3843.114582535679 1 -1.1245825356791102
+sell 3838.928125 3839.813590992864 -3.3009915428146996 0 -3.3009915428146996
+buy 3838.02 3837.148621507136 -3840.4496130499506 1 -2.4296130499506035
+sell 3835.957525 3836.828290992864 -3.6213220570866724 0 -3.6213220570866724
+buy 3836.6 3835.7414840071356 -3839.3628060642222 1 -2.7628060642223318
+sell 3834.4032500000003 3835.2611534928647 -4.10165257135759 0 -4.10165257135759
+buy 3834.8 3833.953121507136 -3838.0547740784937 1 -3.254774078493483
+sell 3832.4965249999996 3833.3427909928637 -4.711983085629981 0 -4.711983085629981
+sell 3835.0 3835.819928492864 3831.107945407234 -1 -3.892054592765817
+buy 3836.779575 3835.960259007136 -4.852313599901663 0 -4.852313599901663
+sell 3835.01 3835.8238034928645 3830.971489892963 -1 -4.038510107037382
+buy 3836.817325 3836.0041340071357 -5.032644114172854 0 -5.032644114172854
+buy 3835.89 3835.0774215071356 -3840.1100656213084 1 -4.2200656213085495
+sell 3833.575125 3834.387090992864 -5.722974628444263 0 -5.722974628444263
+sell 3834.5 3835.3095159928644 3829.58654136442 -1 -4.9134586355799
+buy 3836.2687499999997 3835.4598465071354 -5.873305142715253 0 -5.873305142715253
+sell 3838.89 3839.6750159928642 3833.801710850149 -1 -5.08828914985088
+buy 3840.9497499999998 3840.1653465071354 -6.363635656986389 0 -6.363635656986389
+buy 3836.0 3835.2615340071357 -3841.625169664122 1 -5.625169664122041
+sell 3834.2333500000004 3834.971203492865 -6.653966171257252 0 -6.653966171257252
+sell 3834.5 3835.232953492864 3828.5789873216067 -1 -5.921012678393254
+buy 3836.155625 3835.423284007136 -6.844296685529116 0 -6.844296685529116
+buy 3832.0 3831.317884007136 -3838.162180692665 1 -6.162180692665061
+sell 3828.5434 3829.221228492864 -8.940952199800904 0 -8.940952199800904
+buy 3833.86 3833.264246507136 -3842.2051987069367 1 -8.345198706936571
+sell 3830.4216499999998 3830.995353492864 -11.20984521407263 0 -11.20984521407263
+buy 3831.49 3830.9193590071354 -3842.129204221208 1 -10.639204221208274
+sell 3829.0092250000002 3829.5541409928646 -12.575063228343424 0 -12.575063228343424
+buy 3830.99 3830.4597840071356 -3843.034847235479 1 -12.04484723547921
+sell 3828.66965 3829.194353492864 -13.840493742614854 0 -13.840493742614854
+buy 3829.0 3828.487546507136 -3842.3280402497508 1 -13.328040249750757
+sell 3827.6927250000003 3828.2008909928645 -14.127149256886241 0 -14.127149256886241
+buy 3828.99 3828.4934715071354 -3842.6206207640216 1 -13.630620764021842
+sell 3826.014575 3826.506815992864 -16.113804771157447 0 -16.113804771157447
+sell 3826.82 3827.3073409928643 3811.193536221707 -1 -15.626463778293328
+buy 3827.9682749999997 3827.4846090071355 -16.291072785428696 0 -16.291072785428696
+sell 3827.13 3827.6099909928644 3811.3189182074357 -1 -15.811081792564437
+buy 3827.9511249999996 3827.4760340071352 -16.157115799699568 0 -16.157115799699568
+sell 3827.78 3828.2385534928644 3812.081437693165 -1 -15.698562306835356
+buy 3828.5270250000003 3828.073984007136 -15.992546313971161 0 -15.992546313971161
+sell 3827.64 3828.0905909928642 3812.098044678893 -1 -15.541955321106798
+buy 3828.6600750000002 3828.220509007136 -16.12246432824304 0 -16.12246432824304
+buy 3827.77 3827.375759007136 -3843.498223335379 1 -15.72822333537897
+buy 3825.9765 3825.590221507136 -7669.088444842515 2 -17.135444842514516
+sell 3823.7526000000003 3824.1339784928646 -3844.9544663496504 1 -21.201866349650118
+buy 3824.68365 3824.3059465071356 -7669.2604128567855 2 -19.893112856785592
+sell 3823.9465 3824.314403492864 -3844.9460093639213 1 -20.999509363921334
+sell 3824.704475 3825.071765992864 -19.87424337105722 0 -19.87424337105722
+buy 3825.52 3825.1649590071356 -3845.039202378193 1 -19.51920237819286
+buy 3825.11 3824.760471507136 -7669.799673885329 2 -19.579673885328702
+sell 3807.01245 3811.7713659928645 -3858.0283078924645 1 -51.01585789246428
+sell 3815.2024499999998 3819.960753492864 -38.06755439960034 0 -38.06755439960034
+buy 3820.47 3817.0365340071357 -3855.104088406736 1 -34.63408840673628
+sell 3807.8233499999997 3811.2562034928637 -43.84788491387235 0 -43.84788491387235
+buy 3814.4 3810.967759007136 -3854.8156439210084 1 -40.41564392100827
+sell 3803.2857999999997 3806.7174284928637 -48.09821542814461 0 -48.09821542814461
+buy 3809.54 3806.108984007136 -3854.2071994352805 1 -44.66719943528051
+sell 3800.19825 3803.628653492864 -50.57854594241644 0 -50.57854594241644
+buy 3807.79 3804.3651090071357 -3854.943654949552 1 -47.15365494955222
+sell 3798.2105 3801.6347784928644 -53.30887645668781 0 -53.30887645668781
+buy 3805.8 3802.389196507136 -3855.698072963824 1 -49.89807296382378
+sell 3795.888675 3799.298865992864 -56.39920697095977 0 -56.39920697095977
+buy 3803.68 3800.2740965071357 -3856.6733034780955 1 -52.99330347809564
+sell 3790.1684750000004 3793.5737659928645 -63.09953748523094 0 -63.09953748523094
+buy 3799.08 3795.6759340071358 -3858.7754714923667 1 -59.69547149236678
+sell 3788.36215 3791.765603492864 -67.0098679995026 0 -67.0098679995026
+buy 3799.67 3796.270221507136 -3863.2800895066384 1 -63.61008950663836
+sell 3789.980725 3793.379890992864 -69.90019851377428 0 -69.90019851377428
+buy 3798.03 3794.641246507136 -3864.5414450209105 1 -66.51144502091029
+sell 3786.292775 3789.680915992864 -74.86052902804659 0 -74.86052902804659
+buy 3793.87 3790.484309007136 -3865.3448380351824 1 -71.47483803518253
+sell 3783.9289 3787.313978492864 -78.03085954231847 0 -78.03085954231847
+buy 3788.21 3784.8886215071357 -3862.919481049454 1 -74.7094810494541
+sell 3780.657525 3783.9782909928645 -78.94119005658968 0 -78.94119005658968
+buy 3784.28 3780.969646507136 -3859.9108365637258 1 -75.63083656372555
+sell 3774.819575 3778.129315992864 -81.78152057086163 0 -81.78152057086163
+buy 3781.44 3778.133934007136 -3859.9154545779975 1 -78.47545457799743
+sell 3771.72815 3775.033603492864 -84.88185108513335 0 -84.88185108513335
+sell 3784.61 3787.661265992864 3702.779414907731 -1 -81.8305850922693
+buy 3792.51225 3789.461596507136 -86.68218159940534 0 -86.68218159940534
+sell 3780.7 3783.450528492864 3696.768346893459 -1 -83.93165310654103
+buy 3790.530775 3787.780859007136 -91.01251211367708 0 -91.01251211367708
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

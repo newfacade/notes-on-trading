@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -143,7 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="intro.html">
+<a class="navbar-brand logo" href="as-part1.html">
   
   
   
@@ -164,13 +165,12 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                <a class="reference internal" href="as-part1.html">
+                    Avellaneda-Stoikov Model - Part1
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="as-part1.html">Avellaneda-Stoikov Model - Part1</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Avellaneda-Stoikov Model - Part2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="as-part3.html">Avellaneda-Stoikov Model - Part3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="as-part4.html">Avellaneda-Stoikov Model - Part4</a></li>
@@ -419,6 +419,7 @@ receive buy and sell orders.</p>
 <p class="admonition-title">Tip</p>
 <p><img alt="" src="_images/as4.png" /></p>
 </div>
+<p><img alt="" src="_images/as2.svg" /></p>
 <p>The wealth and inventory are now stochastic and
 depend on the arrival of market sell and buy orders.
 Indeed, the wealth in cash jumps every time there is a buy
@@ -437,6 +438,10 @@ held at time <span class="math notranslate nohighlight">\(t\)</span> is</p>
 <p>Before turning to the solution of this problem, we
 consider some realistic functional forms for the intensities <span class="math notranslate nohighlight">\(\lambda^{a}(\delta^{a})\)</span> and <span class="math notranslate nohighlight">\(\lambda^{b}(\delta^{b})\)</span> inspired by recent results in the
 econophysics literature.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><span class="math notranslate nohighlight">\(\delta^{a}\)</span> and <span class="math notranslate nohighlight">\(\delta^{b}\)</span> are time and state dependent.</p>
+</div>
 </section>
 <section id="the-trading-intensity">
 <h2>The trading intensity<a class="headerlink" href="#the-trading-intensity" title="Permalink to this heading">#</a></h2>
@@ -462,7 +467,7 @@ found by several studies to obey a power law. In other
 words, the density of market order size is</p>
 <div class="math notranslate nohighlight">
 \[f^{Q}(x)\propto x^{-1-\alpha}\quad\text{note: }\propto\text{ means proportion to}\]</div>
-<p>for large x, with <span class="math notranslate nohighlight">\(\alpha=1.53\)</span> for US stocks.</p>
+<p>for large <span class="math notranslate nohighlight">\(x\)</span>, with <span class="math notranslate nohighlight">\(\alpha=1.53\)</span> for US stocks.</p>
 <p>On the statistics of the market impact in the econophysics literature. Some authors find that the change in price <span class="math notranslate nohighlight">\(\Delta{p}\)</span> following a market order of size <span class="math notranslate nohighlight">\(Q\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[\Delta{p}\propto Q^{\beta},\]</div>
@@ -478,11 +483,109 @@ executed:</p>
 \lambda(\delta) &amp;= \Lambda P(\Delta p&gt;\delta) \\
 &amp;= \Lambda P(\ln(Q)&gt;K\delta) \\
 &amp;= \Lambda P(Q&gt;\exp(K\delta)) \\
-&amp;= \Lambda \int_{\exp(K\delta)}^{\infty}x^{-1-\alpha}\mathrm{d}x\quad \text{(note: no proportion constant?)}\\
+&amp;= \Lambda \int_{\exp(K\delta)}^{\infty}x^{-1-\alpha}\mathrm{d}x\\
 &amp;= A\exp(-k\delta)
 \end{aligned}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(A=\Lambda/\alpha\)</span> and <span class="math notranslate nohighlight">\(k=\alpha K\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">lst</span> <span class="o">=</span> <span class="n">read_jsonl</span><span class="p">(</span><span class="s1">&#39;2024-05-29.json&#39;</span><span class="p">)</span>
+<span class="n">show_list</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>86400
+[1716912000000, &#39;3861.10000000&#39;, &#39;3861.11000000&#39;, &#39;3861.10000000&#39;, &#39;3861.11000000&#39;, &#39;0.36010000&#39;, 1716912000999, &#39;1390.38375800&#39;, 21, &#39;0.16480000&#39;, &#39;636.31092800&#39;, &#39;0&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">get_probs</span><span class="p">(</span><span class="n">diffs</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">diff</span> <span class="ow">in</span> <span class="n">diffs</span><span class="p">:</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+            <span class="n">mid</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">low</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">high</span> <span class="o">-</span> <span class="n">mid</span> <span class="o">&gt;</span> <span class="n">diff</span><span class="p">:</span>
+                <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">low</span> <span class="o">-</span> <span class="n">mid</span> <span class="o">&lt;</span> <span class="n">diff</span><span class="p">:</span>
+                <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cnt</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">get_probs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">neg</span> <span class="o">=</span> <span class="n">get_probs</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;pos prob&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">neg</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;neg prob&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;prob&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1e82e7bd9aa16a02e57e30ef7fd051147c8e0cae833596f122d943af7cbec578.png" src="_images/1e82e7bd9aa16a02e57e30ef7fd051147c8e0cae833596f122d943af7cbec578.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nums</span> <span class="o">=</span> <span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">+</span> <span class="n">neg</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="c1"># 定义拟合函数</span>
+<span class="k">def</span> <span class="nf">exponential_func</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span> <span class="o">*</span> <span class="n">delta</span><span class="p">)</span>
+
+<span class="c1"># 使用curve_fit进行拟合</span>
+<span class="n">params</span><span class="p">,</span> <span class="n">covariance</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">exponential_func</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">nums</span><span class="p">)</span>
+
+<span class="c1"># 获取拟合参数</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">params</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A = </span><span class="si">{</span><span class="n">A</span><span class="si">}</span><span class="s2">, k = </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 绘制原始数据和拟合曲线</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">nums</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Original Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">exponential_func</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Fitted Curve: A=</span><span class="si">{</span><span class="n">A</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, k=</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;nums[i]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 0.16590499485851926, k = 2.8564179229240696
+</pre></div>
+</div>
+<img alt="_images/e40c6a8ef83d6aa86e1b896186c866d9177dbe441374b47b47a013cdfdf1207b.png" src="_images/e40c6a8ef83d6aa86e1b896186c866d9177dbe441374b47b47a013cdfdf1207b.png" />
+</div>
+</div>
 </section>
 </section>
 

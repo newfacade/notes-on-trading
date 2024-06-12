@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -142,7 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="intro.html">
+<a class="navbar-brand logo" href="as-part1.html">
   
   
   
@@ -163,13 +164,12 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                <a class="reference internal" href="as-part1.html">
+                    Avellaneda-Stoikov Model - Part1
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="as-part1.html">Avellaneda-Stoikov Model - Part1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="as-part2.html">Avellaneda-Stoikov Model - Part2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="as-part3.html">Avellaneda-Stoikov Model - Part3</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Avellaneda-Stoikov Model - Part4</a></li>
@@ -366,7 +366,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetric-exponential-arrival-rates">Symmetric exponential arrival rates</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asymptotic-expansion-in-q">Asymptotic expansion in <span class="math notranslate nohighlight">\(q\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-simulations">Numerical simulations</a></li>
 </ul>
             </nav>
         </div>
@@ -384,8 +386,253 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>The solution!</p>
 </div>
+<section id="symmetric-exponential-arrival-rates">
+<h2>Symmetric exponential arrival rates<a class="headerlink" href="#symmetric-exponential-arrival-rates" title="Permalink to this heading">#</a></h2>
+<p>The main computational difficulty lies in solving</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\theta_{t} &amp;+ \frac{1}{2}\sigma^{2}\theta_{ss}-\frac{1}{2}\sigma^{2}\gamma\theta_{s}^{2} \\
+&amp;+ \underset{\delta^{b}}{\max}\left[\frac{\lambda^{b}(\delta^{b})}{\gamma}[1 - e^{\gamma(s-\delta^{b} - r^{b})}]\right] +\\
+&amp;+ \underset{\delta^{a}}{\max}\left[\frac{\lambda^{a}(\delta^{a})}{\gamma}[1 - e^{-\gamma(s+\delta^{b} - r^{b})}]\right] = 0\\
+\theta(&amp;s,q,T) = qs.
+\end{aligned}
+\end{split}\]</div>
+<p>The terms to be maximized in the expression are highly nonlinear and may depend on the inventory. In the case of symmetric, exponential
+arrival rates:</p>
+<div class="math notranslate nohighlight">
+\[\lambda^{a}(\delta) = \lambda^{b}(\delta) = Ae^{-k\delta}.\]</div>
+<p>Along with the implicit relations:</p>
+<div class="math notranslate nohighlight">
+\[s - r^{b}(s,q,t) = \delta^{b} - \frac{1}{\gamma}\ln\left(1 - \gamma\frac{\lambda^{b}(\delta^{b})}{(\partial\lambda^{b}/\partial\delta)(\delta^{b})}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[r^{a}(s,q,t) - s = \delta^{a} - \frac{1}{\gamma}\ln\left(1 - \gamma\frac{\lambda^{a}(\delta^{a})}{(\partial\lambda^{a}/\partial\delta)(\delta^{a})}\right)\]</div>
+<p>We have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\underset{\delta^{b}}{\max}\left[\frac{\lambda^{b}(\delta^{b})}{\gamma}[1 - e^{\gamma(s-\delta^{b} - r^{b})}]\right] &amp;= \frac{\lambda^{b}(\delta^{b})}{\gamma}\left[1 - \frac{1}{1 - \gamma\frac{\lambda^{b}(\delta^{b})}{(\partial\lambda^{b}/\partial\delta)(\delta^{b})}}\right]\\
+&amp;=\frac{\lambda^{b}(\delta^{b})}{\gamma}\left[1 - \frac{1}{1 - \gamma\frac{Ae^{-k\delta^{b}}}{-kAe^{-k\delta^{b}}}}\right]\\
+&amp;=\frac{A}{k+\gamma}e^{-k\delta^{b}}
+\end{aligned}
+\end{split}\]</div>
+<p>Substituting the optimal values:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;\theta_{t} + \frac{1}{2}\sigma^{2}\theta_{ss}-\frac{1}{2}\sigma^{2}\gamma\theta_{s}^{2} + \frac{A}{k+\gamma}(e^{-k\delta^{a}} + e^{-k\delta^{b}}) = 0, \\
+&amp;\theta(s,q,T) = qs.
+\end{aligned}
+\end{split}\]</div>
+</section>
 <section id="asymptotic-expansion-in-q">
 <h2>Asymptotic expansion in <span class="math notranslate nohighlight">\(q\)</span><a class="headerlink" href="#asymptotic-expansion-in-q" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The order arrival terms (the terms to be maximized in the expression) are highly nonlinear and may depend on the inventory. We therefore
+suggest an asymptotic expansion of   in the inventory
+variable <span class="math notranslate nohighlight">\(q\)</span>, and a linear approximation of the order
+arrival terms.</p>
+</div>
+<p>Consider an asymptotic expansion in the inventory
+variable</p>
+<div class="math notranslate nohighlight">
+\[\theta(q,s,t) = \theta^{0}(s,t) + q\theta^{1}(s,t) + \frac{1}{2}q^{2}\theta^{2}(s,t) + \dots\]</div>
+<p>The exact relations for the indifference bid and ask prices:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+r^{b}(s,q,t) &amp;= \theta(s,q+1,t) -\theta(s,q,t)\\
+&amp;=\theta^{1}(s,t) + (1+2q)\theta^{2}(s,t) + \dots
+\end{aligned}
+\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+r^{a}(s,q,t) = \theta^{1}(s,t) + (-1+2q)\theta^{2}(s,t)+\dots
+\]</div>
+<p>Along with the implicit relations, we find that the optimal pricing
+strategy amounts to quoting a spread of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\delta^{a}+\delta^{b} &amp;= r^{a}(s,q,t) - r^{b}(s,q,t)+\frac{2}{\gamma}\ln(1+\frac{\gamma}{k}) \\
+&amp;\approx -2\theta^{2}(s, t) + \frac{2}{\gamma}\ln(1+\frac{\gamma}{k})
+\end{aligned}
+\end{split}\]</div>
+<p>around the reservation price given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+r(s,q,t) &amp;= \frac{1}{2}(s-\delta^{b}) + \frac{1}{2}(s+\delta^{a})\\
+&amp;=\frac{r^{a}+ r^{b}}{2}\\
+&amp;\approx\theta^{1}(s,t) + 2q\theta^{2}(s,t).
+\end{aligned}
+\end{split}\]</div>
+<p>The bid-ask spread is independent of the inventory. Taking a first-order approximation of the order arrival
+term</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{A}{k+\gamma}(e^{-k\delta^{a}} + e^{-k\delta^{b}}) = \frac{A}{k+\gamma}(2 - k(\delta^{a} + \delta^{b})+\dots)
+\]</div>
+<p>we notice that the linear term does not depend on the
+inventory <span class="math notranslate nohighlight">\(q\)</span>. If we substitute and group terms of order <span class="math notranslate nohighlight">\(q\)</span>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;\theta_{t}^{1} + \frac{1}{2}\sigma^{2}\theta_{ss}^{1} = 0\\
+&amp;\theta_{1}(s, T) = s
+\end{aligned}
+\end{split}\]</div>
+<p>whose solution is <span class="math notranslate nohighlight">\(\theta^{1}(s, t)\)</span>. Grouping terms of order <span class="math notranslate nohighlight">\(q^{2}\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;\theta_{t}^{2}+\frac{1}{2}\sigma^{2}\theta_{ss}^{2} -\frac{1}{2}\sigma^{2}\gamma(\theta_{s}^{1})^{2} = 0\\
+&amp;\theta^{2}(s, T) = 0.
+\end{aligned}
+\end{split}\]</div>
+<p>whose solution is <span class="math notranslate nohighlight">\(\theta^{2} = -(1/2)\sigma^{2}\gamma(T-t)\)</span>. Thus, for this
+linear approximation of the order arrival term, we obtain
+the same indifference price</p>
+<div class="math notranslate nohighlight">
+\[r(s, t) = s - q\gamma\sigma^{2}(T-t)\]</div>
+<p>We then set a bid/ask spread given by</p>
+<div class="math notranslate nohighlight">
+\[\sigma^{a} + \sigma^{b} = \gamma\sigma^{2}(T-t) + \frac{2}{\gamma}\ln(1+\frac{\gamma}{k}).\]</div>
+</section>
+<section id="numerical-simulations">
+<h2>Numerical simulations<a class="headerlink" href="#numerical-simulations" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="k">def</span> <span class="nf">one_simulate</span><span class="p">(</span><span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.005</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="mi">140</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">s_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ask_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">bid_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">spread_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span> <span class="o">+</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="n">indifference_price</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="n">q</span><span class="o">*</span><span class="n">gamma</span><span class="o">*</span><span class="p">(</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="o">-</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">spread</span> <span class="o">=</span> <span class="n">gamma</span><span class="o">*</span><span class="p">(</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="o">-</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">/</span><span class="n">gamma</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">gamma</span><span class="o">/</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">spread_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spread</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">symmetric</span><span class="p">:</span>
+            <span class="n">ask_price</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">spread</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">bid_price</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="n">spread</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ask_price</span> <span class="o">=</span> <span class="n">indifference_price</span> <span class="o">+</span> <span class="n">spread</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">bid_price</span> <span class="o">=</span> <span class="n">indifference_price</span> <span class="o">-</span> <span class="n">spread</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">delta_a</span> <span class="o">=</span> <span class="n">ask_price</span> <span class="o">-</span> <span class="n">s</span>
+        <span class="n">delta_b</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="n">bid_price</span>
+        <span class="n">s_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">ask_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ask_price</span><span class="p">)</span>
+        <span class="n">bid_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bid_price</span><span class="p">)</span>
+
+        <span class="n">prob_a</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="o">*</span><span class="n">delta_a</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">prob_b</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="o">*</span><span class="n">delta_b</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">prob_a</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="n">ask_price</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">prob_b</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">x</span> <span class="o">-=</span> <span class="n">bid_price</span>
+
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">T</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span> <span class="o">+</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">),</span> <span class="n">s_list</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span> <span class="o">+</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">),</span> <span class="n">ask_list</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ask&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span> <span class="o">+</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">),</span> <span class="n">bid_list</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;bid&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">spread_list</span><span class="p">),</span> <span class="n">x</span> <span class="o">+</span> <span class="n">q</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">q</span>
+
+<span class="n">one_simulate</span><span class="p">(</span><span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">one_simulate</span><span class="p">(</span><span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/df46206184bce0a7c6b6d754db27eba812085ea746e4c55c1e2aa58be223995e.png" src="_images/df46206184bce0a7c6b6d754db27eba812085ea746e4c55c1e2aa58be223995e.png" />
+<img alt="_images/d1f38d92002df1416157a341369d34cf0d4067ae7881c48d74e6b31e2d34f616.png" src="_images/d1f38d92002df1416157a341369d34cf0d4067ae7881c48d74e6b31e2d34f616.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.4907704227514234, 73.07360727135028, 10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spread_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">profit_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">q_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">spread</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">one_simulate</span><span class="p">()</span>
+    <span class="n">spread_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spread</span><span class="p">)</span>
+    <span class="n">profit_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span>
+    <span class="n">q_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;avg spread: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">spread_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;avg profit: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">profit_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;std profit: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">profit_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;avg final q: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">q_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;std final q: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">q_list</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>avg spread:  1.4907704227514236
+avg profit:  65.05650170902578
+std profit:  6.585956774549751
+avg final q:  0.013
+std final q:  3.116541512638649
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spread_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">profit_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">q_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">spread</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">one_simulate</span><span class="p">(</span><span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">spread_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spread</span><span class="p">)</span>
+    <span class="n">profit_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span>
+    <span class="n">q_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;avg spread: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">spread_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;avg profit: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">profit_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;std profit: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">profit_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;avg final q: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">q_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;std final q: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">q_list</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>avg spread:  1.4907704227514236
+avg profit:  67.49843112939867
+std profit:  13.351882018403339
+avg final q:  -0.224
+std final q:  8.405107018949847
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -443,7 +690,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetric-exponential-arrival-rates">Symmetric exponential arrival rates</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asymptotic-expansion-in-q">Asymptotic expansion in <span class="math notranslate nohighlight">\(q\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-simulations">Numerical simulations</a></li>
 </ul>
   </nav></div>
 
