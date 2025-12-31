@@ -1,0 +1,30 @@
+{
+    "window.commandCenter": 1,
+    
+    // Python和Jupyter配置
+    "python.linting.enabled": true,
+    "python.analysis.autoImportCompletions": true,
+    "editor.suggestSelection": "first",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+    },
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.suggest.showKeywords": true,
+    "jupyter.enableCellCodeLens": true,
+    "jupyter.enableAutoMatcher": true,
+    "jupyter.enableExtendedKernelCompletions": true,
+    "editor.hover.enabled": true,
+    
+    // 禁用Jedi，使用Pylance
+    "python.languageServer": "Pylance",
+    "python.analysis.completeFunctionParens": true,
+    "jupyter.codeRegularExpression": "^(#\\s*%%|#\\s*\\<codecell\\>|#\\s*In\\[\\d*?\\]|#\\s*In\\[ \\])",
+    
+    // 自动补全设置
+    "editor.wordBasedSuggestions": "matchingDocuments",
+    "editor.snippetSuggestions": "inline",
+    "editor.tabCompletion": "on",
+    "jupyter.interactiveWindow.textEditor.executeSelection": true
+} 
